@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 
+      - image: circleci/python:latest
     steps:
       - run: echo "build"
 
