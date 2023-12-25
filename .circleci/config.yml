@@ -20,13 +20,5 @@ workflows:
 
   stage_workflow:
     job:
-      - build:
-         filters:
-          branches:
-            only: master
-      - deploy:
-         filters:
-          branches:
-            only: master
-        requires:
-          - build
+      - build
+      - deploy
