@@ -5,13 +5,15 @@ jobs:
     docker:
       - image: circleci/python:latest
     steps:
-      - run: echo "build"
+      - run: 
+          command: echo "deploy"
 
   deploy:
     docker:
       - image: circleci/python:latest
     steps:
-      - run: echo "deploy"
+      - run: 
+          command: echo "deploy"
 
 workflows:
   version: 2
