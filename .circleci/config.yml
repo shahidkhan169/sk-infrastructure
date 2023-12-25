@@ -1,24 +1,38 @@
-version: 2
+version: '2.1'
+
+orbs:
+  terraform: circleci/terraform@3.1
 
 jobs:
-  build:
-    docker:
-      - image: circleci/python:latest
+  terraform_init:
+    executor: terraform/default
     steps:
-      - run: 
-          command: echo "deploy"
+      - checkout
+      - terraform/init:
+          path: ./Terraform
 
-  deploy:
-    docker:
-      - image: circleci/python:latest
+  terraform_plan:
+    executor: terraform/default
     steps:
-      - run: 
-          command: echo "deploy"
+      - checkout
+      - terraform/plan:
+          path: ./Terraform
+
+  terraform_apply:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/apply:
+          path: ./Terraform
 
 workflows:
-  version: 2
-
-  stage_workflow:
+  main:
     jobs:
-      - build
-      - deploy
+      - terraform_init
+      - terraform_plan:
+          requires:
+            - terraform_init
+      - terraform_apply:
+          requires:
+            - terraform_plan
+
